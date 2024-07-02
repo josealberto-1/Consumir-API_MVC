@@ -1,0 +1,70 @@
+﻿@model List<Plantilla>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-left">
+    <h1 class="display-6">Consulta de Plantillas</h1>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        @ViewBag.Accion
+    </div>
+    <div class="card-body">
+        <div class="text-end mb-3">
+            <a asp-action="Plantilla" asp-controller="Home" asp-route-idplantilla="0" class="btn btn-success btn-sm">Nueva Plantilla</a>
+        </div>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Contenido</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.Nombre</td>
+                        <td class="text-center">@Html.Raw(item.Contenido.Substring(0, Math.Min(item.Contenido.Length, 18)))</td>
+                        <td>@item.Tipo</td>
+                        <td>@item.Fecha.ToString("yyyy-MM-dd")</td>
+                        <td class="table-actions text-center">
+                            <a asp-action="Visualizar" asp-controller="Home" asp-route-IdPlantilla="@item.id" class="btn btn-info btn-sm me-2">Visualizar</a>
+                            @* <a asp-action="EditarPlantilla" asp-controller="Home" asp-route-IdPlantilla="@item.id" class="btn btn-primary btn-sm me-2">Editar</a> *@
+                            <a asp-action="plantilla" asp-controller="Home" asp-route-id="@item.id" class="btn btn-primary btn-sm me-2">Editar</a>
+
+                            <a asp-action="Eliminar" asp-controller="Home" asp-route-IdPlantilla="@item.id" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .text-left {
+        text-align: left;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .table-actions {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+        .table-actions .btn {
+            margin: 0 2px;
+        }
+</style>

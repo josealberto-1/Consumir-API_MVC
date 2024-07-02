@@ -1,0 +1,42 @@
+﻿@model Plantilla
+
+@{
+    ViewData["Title"] = ViewBag.Accion; // Esto asume que ViewBag.Accion tiene "Nueva Plantilla" o "Editar Plantilla"
+}
+
+
+<div class="text-left">
+    <h1 class="display-6">Consulta de Plantillas/Nueva Plantilla</h1>
+</div>
+
+<div class="card">
+    <div class="card-header">
+       
+    </div>
+    <div class="card-body">
+        <form asp-action="GuardarCambios">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" value="@Model.Nombre" required />
+            </div>
+            <div class="mb-3">
+                <label for="contenido" class="form-label">Contenido:</label>
+                <textarea id="contenido" name="contenido" class="form-control" rows="8">@Model.Contenido</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo:</label>
+                <input type="text" id="tipo" name="tipo" class="form-control" value="@Model.Tipo" required />
+            </div>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha:</label>
+                <input type="text" id="fecha" name="fecha" class="form-control" value="@DateTime.Now.ToString("dd-MM-yyyy")" readonly />
+            </div>
+            <input type="hidden" id="id" name="id" value="@Model.id" />
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
